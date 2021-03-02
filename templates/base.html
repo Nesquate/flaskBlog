@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        {% block head %}
+        <title>{% block subtitle %}{% endblock %} - {{ title }}</title>
+        {% endblock %}
+    </head>
+    <body>
+        <h1><a href="{{ homelink }}">{{title }}</a></h1>
+        <nav>
+            <ul>
+                {% for name in nav %}
+                <li>{{ name }}</li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% block content %}{% endblock %}
+        <footer>
+            <a href="{{ homelink }}">{{ title }}</a> - All right reserved.
+        </footer>
+    </body>
+</html>

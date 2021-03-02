@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+{% if viewPost == True %} {{ postTitle }}
+{% else %}Home
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if viewPost == True %}
+<h2><a href="{{ postData.url }}">{{ postData.name }}</a></h2>
+{{ postData.content|safe }}
+{% else %}
+<h2>Post List</h2>
+<ul>
+    {% for post in postData %}
+    <li><a href="{{ post.url }}">{{ post.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
