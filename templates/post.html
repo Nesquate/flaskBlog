@@ -5,9 +5,12 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-{% if viewPost == True %}
-<h2><a href="{{ postData.url }}">{{ postData.name }}</a></h2>
-{{ postData.content|safe }}
+{% if postid %}
+<h2><a href="{{ postData[postid-1].url }}">{{ postData[postid-1].name }}</a></h2>
+{{ postData[postid-1].content|safe }}
+<div id="tagInPost">
+    Tags : {{ postData[postid - 1].tag }}
+</div>
 {% else %}
 <h2>Post List</h2>
 <ul>
