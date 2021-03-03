@@ -2,22 +2,21 @@
 <html lang="zh-TW">
     <head>
         {% block head %}
-        <title>{% block subtitle %}{% endblock %} - {{ siteData[0].title }}</title>
+        <title>{% block subtitle %}{% endblock %} - {{ siteData.name }}</title>
         {% endblock %}
     </head>
     <body>
-        <h1><a href="{{ siteData[0].url }}">{{ siteData[0].title }}</a></h1>
-        <h6>{{ siteData[0].description }}</h6>
+        <h1><a href="{{ url_for('home') }}">{{ siteData.name }}</a></h1>
+        <h6>{{ siteData.description }}</h6>
         <nav>
             <ul>
-                {% for nav in siteData[1] %}
-                <li><a href="{{ nav.url }}">{{ nav.name }}</a></li>
-                {% endfor %}
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('search') }}">Search</a></li>
             </ul>
         </nav>
         {% block content %}{% endblock %}
         <footer>
-            <a href="{{ siteData[0].url }}">{{ siteData[0].title }}</a> - All right reserved.
+            <a href="{{ url_for('home') }}">{{ siteData.name }}</a> - All right reserved.
         </footer>
     </body>
 </html>

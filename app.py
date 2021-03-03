@@ -1,64 +1,68 @@
 from flask import Flask, render_template, url_for, escape, redirect, abort
+from flask_sqlalchemy import SQLAlchemy
 core = Flask(__name__)
+core.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+db = SQLAlchemy(core)
+db.init_app(core)
 
-postData = [{
-    'id':'1',
-    'name':'test',
-    'content':'<p>this is a test post.</p>',
-    'tag':'test, post',
-    'category':'admin'
-},
-{
-    'id':'2',
-    'name':'test2',
-    'content':'<p>this is a test post2.</p>',
-    'tag':'test',
-    'category':'admin'
-}]
+class Site(db.Model):
+    __tablename__ = 'site'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), unique=True, nullable=True)
+    description = db.Column(db.String(), unique=True, nullable=True)
 
-def setSite():
-    homeUrl = url_for('home')
-    searchUrl = url_for('search')
-    siteData = [
-        {
-            'title':'Test Title',
-            'description':'A test site by Flask',
-            'url':homeUrl
-        },
-        [
-            {'name':'Home', 'url':homeUrl},
-            {'name':'Search', 'url':searchUrl}
-        ]
-    ]
-    return siteData
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
 
-    
+class Page(db.Model):
+    __tablename__ = 'pages'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    description = db.Column(db.String(), nullable=True)
+    content = db.Column(db.String(), nullable=True)
 
-def genPostLink(postData):
-    for i in postData:
-        i['url'] = url_for('postPage', postid = i['id'])
+    def __init__(self, name ,description, content):
+        self.name = name
+        self.description = description
+        self.content = content
+
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    description = db.Column(db.String(), nullable=True)
+    content = db.Column(db.String(), nullable=True)
+    tag = db.Column(db.String(), nullable=True)
+    category = db.Column(db.String(), nullable=True)
+
+    def __init__(self, name, description, content, tag, category):
+        self.name = name
+        self.description = description
+        self.content = content
+        self.tag = tag
+        self.category = category
 
 @core.route('/')
 def home():
-    genPostLink(postData)
-    siteData = setSite()
-    return render_template('post.html', 
-        postData=postData,
-        siteData=siteData
-    )
+    posts = Post.query.all()
+    siteInfo = Site.query.first()
+    # print(type(siteInfo))
+    if posts:
+        return render_template('post.html', siteData=siteInfo, postData=posts)
+    else:
+        abort(404)
+    # return 'OK'
 
 @core.route('/post/<int:postid>')
 def postPage(postid):
-    siteData = setSite()
-    postSize = len(postData)
-    if postid <= postSize  and postid > 0:
-        return render_template('post.html', 
-            postData=postData,
-            postid=postid,
-            siteData=siteData
-        )
+    anPost = Post.query.filter_by(id=postid).first()
+    siteInfo = Site.query.first()
+    if anPost:
+        return render_template('post.html', siteData=siteInfo, post=anPost)
     else:
-        return abort(404)
+        abort(404)
 
 @core.route('/post')
 @core.route('/categorie')
@@ -76,12 +80,14 @@ def categoryPage(category):
 
 @core.route('/search')
 def search():
-    siteData = setSite()
-    return render_template(
-        'search.html',
-        siteData=siteData
-    )
+    siteInfo = Site.query.first()
+    return render_template('search.html', siteData=siteInfo)
 
 @core.route('/search/<keyword>')
 def search_result(keyword):
     return 'result of ' + escape(keyword) + ' : '
+
+@core.route('/install')
+def dbCreate():
+    db.create_all()
+    return 'You can check if data.db exist or not.'

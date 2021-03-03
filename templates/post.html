@@ -5,17 +5,17 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-{% if postid %}
-<h2><a href="{{ postData[postid-1].url }}">{{ postData[postid-1].name }}</a></h2>
-{{ postData[postid-1].content|safe }}
+{% if post %}
+<h2><a href="{{ post.url }}">{{ post.name }}</a></h2>
+{{ post.content|safe }}
 <div id="tagInPost">
-    Tags : {{ postData[postid - 1].tag }}
+    Tags : {{ post.tag }}
 </div>
 {% else %}
 <h2>Post List</h2>
 <ul>
     {% for post in postData %}
-    <li><a href="{{ post.url }}">{{ post.name }}</a></li>
+    <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
     {% endfor %}
 </ul>
 {% endif %}
