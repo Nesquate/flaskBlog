@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block subtitle %}Tag : {{ tag.name }}{% endblock %}
+{% block content %}
+<h2>Tag : {{ tag.name }}</h2>
+{% if postData %}
+<ul>
+    {% for post in postData %}
+    <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No post.</p>
+{% endif %}
+{% endblock %}

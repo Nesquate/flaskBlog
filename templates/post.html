@@ -6,17 +6,28 @@
 {% endblock %}
 {% block content %}
 {% if post %}
-<h2><a href="{{ post.url }}">{{ post.name }}</a></h2>
+<h2><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></h2>
 {{ post.content|safe }}
+<hr>
 <div id="tagInPost">
-    Tags : {{ post.tag }}
+    Tags :
+    {% for tag in tags %}
+    <a href="{{ url_for('tagPage', tag=tag.id )}}">{{ tag.name }}</a>
+    {% endfor %}
 </div>
-{% else %}
+<div id="categoryInPost">
+    Category : 
+    <a href="{{ url_for('categoryPage', category=post.category.id) }}">{{ post.category.name }}</a>
+</div>
+{% elif postData %}
 <h2>Post List</h2>
 <ul>
     {% for post in postData %}
     <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
     {% endfor %}
 </ul>
+{% else %}
+<h2>Post List</h2>
+<p>No post.</p>
 {% endif %}
 {% endblock %}
