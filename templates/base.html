@@ -15,6 +15,18 @@
             </ul>
         </nav>
         {% block content %}{% endblock %}
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+            <li><a href="{{ url_for('categoryPage', category=category.id) }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <h3>Tags</h3>
+        <ul>
+            {% for tag in tags %}
+            <li><a href="{{ url_for('tagPage', tag=tag.id) }}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
         <footer>
             <a href="{{ url_for('home') }}">{{ siteData.name }}</a> - All right reserved.
         </footer>

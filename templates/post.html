@@ -20,7 +20,7 @@
     <a href="{{ url_for('categoryPage', category=post.category.id) }}">{{ post.category.name }}</a>
 </div>
 {% elif postData %}
-<h2>Post List</h2>
+<h3>Post List</h3>
 <ul>
     {% for post in postData %}
     <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
