@@ -1,10 +1,11 @@
+{% set postsByCategory=categoryData.postid %}
 {% extends 'base.html' %}
-{% block subtitle %}Category : {{ category.name }}{% endblock %}
+{% block subtitle %}Category : {{ categoryData.name }}{% endblock %}
 {% block content %}
-<h2>Category : {{ category.name }}</h2>
-{% if postData %}
+<h2>Category : {{ categoryData.name }}</h2>
+{% if postsByCategory %}
 <ul>
-    {% for post in postData %}
+    {% for post in postsByCategory %}
     <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
     {% endfor %}
 </ul>

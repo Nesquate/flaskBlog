@@ -1,33 +1,39 @@
 {% extends 'base.html' %}
 {% block subtitle %}
-{% if viewPost == True %} {{ postTitle }}
+{% if postData %} {{ postData.name }}
 {% else %}Home
 {% endif %}
 {% endblock %}
 {% block content %}
-{% if post %}
-<h2><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></h2>
-{{ post.content|safe }}
-<hr>
-<div id="tagInPost">
-    Tags :
-    {% for tag in tags %}
-    <a href="{{ url_for('tagPage', tag=tag.id )}}">{{ tag.name }}</a>
-    {% endfor %}
+{% if postData %}
+{% set tags = db.Posts.query.filter_by(id=postData.id).first().tags %}
+<div id="postContent">
+    <h2><a href="{{ url_for('postPage', postid=postData.id) }}">{{ postData.name }}</a></h2>
+    {{ postData.content|safe }}
+    <hr>
+    <div id="tagInPost">
+        Tags :
+        {% for tag in tags %}
+        <a href="{{ url_for('tagPage', tag=tag.id )}}">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+    <div id="categoryInPost">
+        Category : 
+        <a href="{{ url_for('categoryPage', category=postData.category.id) }}">{{ postData.category.name }}</a>
+    </div>
 </div>
-<div id="categoryInPost">
-    Category : 
-    <a href="{{ url_for('categoryPage', category=post.category.id) }}">{{ post.category.name }}</a>
-</div>
-{% elif postData %}
-<h3>Post List</h3>
-<ul>
-    {% for post in postData %}
-    <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
-    {% endfor %}
-</ul>
 {% else %}
-<h2>Post List</h2>
-<p>No post.</p>
+<div id="postList">
+    <h3>Post List</h3>
+    {% if posts %}  
+    <ul>
+        {% for post in posts %}
+        <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No post.</p>
+    {% endif %}
+</div>
 {% endif %}
 {% endblock %}

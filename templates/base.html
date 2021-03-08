@@ -1,3 +1,6 @@
+{% set siteData = db.Site.query.first() %}
+{% set tags = db.Tags.query.all() %}
+{% set categories = db.Categories.query.all() %}
 <!DOCTYPE html>
 <html lang="zh-TW">
     <head>
@@ -15,18 +18,24 @@
             </ul>
         </nav>
         {% block content %}{% endblock %}
-        <h3>Categories</h3>
-        <ul>
-            {% for category in categories %}
-            <li><a href="{{ url_for('categoryPage', category=category.id) }}">{{ category.name }}</a></li>
-            {% endfor %}
-        </ul>
-        <h3>Tags</h3>
-        <ul>
-            {% for tag in tags %}
-            <li><a href="{{ url_for('tagPage', tag=tag.id) }}">{{ tag.name }}</a></li>
-            {% endfor %}
-        </ul>
+        <div class="gadgets">
+            <div id="gadget_categories" class="gadgets">
+                <h3>Categories</h3>
+                <ul>
+                    {% for category in categories %}
+                    <li><a href="{{ url_for('categoryPage', category=category.id) }}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="gadget_tags" class="gadgets">
+                <h3>Tags</h3>
+                <ul>
+                    {% for tag in tags %}
+                    <li><a href="{{ url_for('tagPage', tag=tag.id) }}">{{ tag.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
         <footer>
             <a href="{{ url_for('home') }}">{{ siteData.name }}</a> - All right reserved.
         </footer>

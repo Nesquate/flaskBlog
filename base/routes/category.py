@@ -4,11 +4,14 @@ from database import db
 
 @core.route('/category/<category>')
 def categoryPage(category):
-    siteInfo = db.Site.query.first()
     # Query result contents post id, so don't need other query
-    anCategory = db.Categories.query.filter_by(id=category).first()
-    if anCategory:
-        return render_template('category.html', siteData=siteInfo, category=anCategory, postData=anCategory.postid)
+    categoryData = db.Categories.query.filter_by(id=category).first() 
+    if categoryData:
+        return render_template(
+            'category.html', 
+            db=db,
+            categoryData=categoryData
+        )
     else:
         abort(404)
     # return '0'

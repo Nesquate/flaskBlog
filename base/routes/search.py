@@ -4,8 +4,7 @@ from database import db
 
 @core.route('/search')
 def search():
-    siteInfo = db.Site.query.first()
-    return render_template('search.html', siteData=siteInfo)
+    return render_template('search.html', db=db)
 
 @core.route('/search/<keyword>')
 def search_result(keyword):
