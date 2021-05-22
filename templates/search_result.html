@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block subtitle %}Result of "{{ keyword }}"{% endblock %}
+{% block content %}
+<h2>Result of "{{ keyword }}"</h2>
+{% if result %}
+<ul>
+{% for item in result%}
+    {% for name in item %}
+        <li><a href="{{ item[name] }}">{{ name }}</a></li>
+    {% endfor %}
+{% endfor %}
+</ul>
+{% else %}
+<p>No result</p>
+{% endif %}
+{% endblock %}
