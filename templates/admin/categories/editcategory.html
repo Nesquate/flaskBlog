@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - New Category{% endblock %}
+{% block content %}
+<h2>Categories</h2>
+<h3>New Category</h3>
+<form method="POST" action="{{ url_for('editCategory', categoryid=category.id) }}">
+    <b>Title : </b><br>
+    <input name="title" type="text" value="{{ category.name }}"><br>
+    <b>Description</b><br>
+    <input name="description" type="text" value="{{ category.description }}"><br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

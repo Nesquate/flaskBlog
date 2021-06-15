@@ -37,8 +37,7 @@ class Posts(db.Model):
     tags = db.relationship('Tags', secondary=relations, backref=db.backref('tag'))
     categories = db.Column(db.Integer(), db.ForeignKey('categories.id'), nullable=True)
 
-    def __init__(self, id, name, description, content):
-        self.id = id
+    def __init__(self, name, description, content):
         self.name = name
         self.description = description
         self.content = content
@@ -50,12 +49,11 @@ class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     postid = db.relationship('Posts', backref='category', lazy=True)
     name = db.Column(db.String(), nullable=False)
-    descrpitpin = db.Column(db.String(), nullable=True)
+    description = db.Column(db.String(), nullable=True)
 
-    def __init__(self, id, name, description):
-        self.id = id
+    def __init__(self, name, description):
         self.name = name
-        self.descrpitpin = description
+        self.description = description
 
 # Tags Information Datas
 class Tags(db.Model):
@@ -63,8 +61,7 @@ class Tags(db.Model):
     name = db.Column(db.String())
     description = db.Column(db.String(), nullable=True)
 
-    def __init__(self, id, name, description):
-        self.id = id
+    def __init__(self, name, description):
         self.name = name
         self.description = description
 

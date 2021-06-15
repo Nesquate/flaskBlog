@@ -8,4 +8,4 @@ if os.path.isdir('install'):
     import install
     
 
-import base
+import base, Admin

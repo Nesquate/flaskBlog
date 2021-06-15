@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - Categories{% endblock %}
+{% block content %}
+<h2>Categories</h2>
+{% if status == 1 %}
+<b>Successful delete.</b><br>
+{% endif %}
+<a href="{{ url_for('newCategory') }}">Add Category</a>
+<h3>List</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+    {% for category in categoriesList %}
+    <tr>
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>
+        <td>{{ category.description }}</td>
+        <td><a href="{{ url_for('editCategory', categoryid=category.id) }}">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Delete Category</h3>
+<p>Type tag id to delete tag.</p>
+<form method="POST" action="{{ url_for('adminCategories') }}">
+    <b>Input : </b>
+    <input name="delCategory" type="text">
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

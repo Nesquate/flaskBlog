@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - Posts{% endblock %}
+{% block content %}
+<h2>Posts</h2>
+{% if status == 1 %}
+<b>Successful delete.</b><br>
+{% endif %}
+<a href="{{ url_for('newPost') }}">Add Post</a>
+<h3>List</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+    {% for post in postsList %}
+    <tr>
+        <td>{{ post.id }}</td>
+        <td>{{ post.name }}</td>
+        <td>{{ post.description }}</td>
+        <th><a href="{{ url_for('editPost', postid=post.id )}}">Edit</a></th>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Delete Post</h3>
+<p>Type post id to delete post.</p>
+<form method="POST" action="{{ url_for('adminPosts') }}">
+    <b>Input : </b>
+    <input name="delPost" type="text">
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

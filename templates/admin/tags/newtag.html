@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - New Tag{% endblock %}
+{% block content %}
+<h2>Tags</h2>
+<h3>New Tag</h3>
+<form method="POST" action="{{ url_for('newTag') }}">
+    <b>Title : </b><br>
+    <input name="title" type="text"><br>
+    <b>Description</b><br>
+    <input name="description" type="text"><br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

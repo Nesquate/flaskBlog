@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - Setting{% endblock %}
+{% block content %}
+<h2>Site Setting</h2>
+{% if status %}
+<b>Setting saved.</b>
+{% endif %}
+<h3>Site Information</h3>
+<form method="POST" action="{{ url_for('siteSetting')}}">
+    <b>Site Name : </b><input name="siteName" value="{{ siteInfo.name }}" type="text">
+    <br>
+    <b>Site Description : </b><input name="siteDescription" value="{{ siteInfo.description }}" type="text">
+    <br><hr>
+    <input type="submit" value="Save Changes">
+</form>
+{% endblock %}

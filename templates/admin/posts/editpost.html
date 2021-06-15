@@ -1,0 +1,35 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - Edit Post{% endblock %}
+{% block content %}
+<h2>Posts</h2>
+<h3>Edit Post</h3>
+<form method="POST" action="{{ url_for('editPost', postid=post.id) }}">
+    <b>Title : </b><br>
+    <input name="title" type="text" value="{{ post.name }}"><br>
+    <b>Content : </b><br>
+    <textarea name="content" cols="20", rows="15">{{ post.content }}</textarea><br>
+    <b>Description</b><br>
+    <input name="description" value="{{ post.description }}" type="text"><br>
+    <b>Cetegory :</b><br>
+    <select name="category">
+        {% for category in categoriesList %}
+        {% if category.id == post.categories %}
+        <option value="{{ category.id }}" selected>{{ category.name }}</option>
+        {% else %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endif %}
+        {% endfor %}
+    </select><br>
+    <b>Tags: </b><br>
+    {% for tag in tagsList %}
+    {% if tag in post.tags %}
+    <input type="checkbox" id="tag_{{ tag.id }}" name="tag" value="{{ tag.id }}", checked="true">
+    <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
+    {% else %}
+    <input type="checkbox" id="tag_{{ tag.id }}" name="tag" value="{{ tag.id }}">   
+    <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
+    {% endif %}
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

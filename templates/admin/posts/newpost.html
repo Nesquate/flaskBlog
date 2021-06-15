@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - New Post{% endblock %}
+{% block content %}
+<h2>Posts</h2>
+<h3>New Post</h3>
+<form method="POST" action="{{ url_for('newPost') }}">
+    <b>Title : </b><br>
+    <input name="title" type="text"><br>
+    <b>Content : </b><br>
+    <textarea name="content" cols="20", rows="15"></textarea><br>
+    <b>Description</b><br>
+    <input name="description" type="text"><br>
+    <b>Cetegory :</b><br>
+    <select name="category">
+        {% for category in categoriesList %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select><br>
+    <b>Tags: </b><br>
+    {% for tag in tagsList %}
+    <input type="checkbox" id="tag_{{ tag.id }}" name="tag" value="{{ tag.id }}">
+    <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

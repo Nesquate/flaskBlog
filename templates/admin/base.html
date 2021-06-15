@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        {% block head %}
+        <title>{% block subtitle %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        <h1><a href="{{ url_for('adminIndex') }}">Admin Page</a></h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('adminIndex') }}">Home</a></li>
+                <li><a href="{{ url_for('adminPosts') }}">Posts</a></li>
+                <li><a href="{{ url_for('adminCategories') }}">Categories</a></li>
+                <li><a href="{{ url_for('adminTags') }}">Tags</a></li>
+                <li><a href="#">Accounts</a></li>
+                <li><a href="{{ url_for('siteSetting') }}">Site setting</a></li>
+            </ul>
+        </nav>
+        {% block content %}{% endblock %}
+        <footer>
+            <a href="https://github.com/Nesquate/flaskBlog" target="_blank">flaskBlog</a> 0.1 alpha - All right reserved.
+        </footer>
+    </body>
+</html>
