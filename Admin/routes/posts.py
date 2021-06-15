@@ -1,8 +1,10 @@
 from flask import render_template, url_for, escape, redirect, abort, request
+from flask_login.utils import login_required
 from app import core
 from database import db, models
 
 @core.route('/admin/posts', methods=['GET', 'POST'])
+@login_required
 def adminPosts():
     status = 0
     if request.method == 'POST':
@@ -14,6 +16,7 @@ def adminPosts():
     return render_template('admin/posts/posts.html', postsList=postsList)
 
 @core.route('/admin/posts/new', methods=['GET', 'POST'])
+@login_required
 def newPost():
     if request.method == 'POST':
         print(request.form.getlist('tag'))
@@ -34,6 +37,7 @@ def newPost():
     return render_template('admin/posts/newpost.html', categoriesList=categories, tagsList=tags)
 
 @core.route('/admin/posts/edit/<int:postid>', methods=['GET', 'POST'])
+@login_required
 def editPost(postid):
     if request.method == 'POST':
         print(request.form.getlist('tag'))

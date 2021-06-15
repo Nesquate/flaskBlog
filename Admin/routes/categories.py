@@ -1,8 +1,10 @@
 from flask import render_template, url_for, escape, redirect, abort, request
+from flask_login.utils import login_required
 from app import core
 from database import db, models
 
 @core.route('/admin/categories', methods=['GET', 'POST'])
+@login_required
 def adminCategories():
     status = 0
     if request.method == 'POST':
@@ -14,6 +16,7 @@ def adminCategories():
     return render_template('admin/categories/categories.html', categoriesList=categoriesList)
 
 @core.route('/admin/categories/new', methods=['GET', 'POST'])
+@login_required
 def newCategory():
     if request.method == 'POST':
         print(request.form)
@@ -25,6 +28,7 @@ def newCategory():
     return render_template('admin/categories/newcategory.html', categoriesList=categories)
 
 @core.route('/admin/categories/edit/<int:categoryid>', methods=['GET', 'POST'])
+@login_required
 def editCategory(categoryid):
     if request.method == 'POST':
         category = db.Categories.query.filter_by(id=categoryid).first()

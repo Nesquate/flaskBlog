@@ -9,14 +9,14 @@ def loginPage():
         account = request.form['account']
         password = request.form['password']
         account = db.Users.query.filter_by(account=account).first()
-        if models.Users.check_password(account, password) and account is not None:
-            login_user(account)
-            return 'Successful login! Hello, ' + current_user.account
-
+        if password is not None:
+            if models.Users.check_password(account, password) and account is not None:
+                login_user(account)
+                return redirect('/')
     return render_template('login.html', db=db)
 
 @core.route('/logout')
 @login_required
 def logoutPage():
     logout_user()
-    return 'Successful logout!'
+    return redirect('/')
