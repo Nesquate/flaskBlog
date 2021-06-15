@@ -19,6 +19,8 @@ def dbCreate(siteName, siteDescription, account, password):
 
     # Create User
     admin = models.Users(account, password)
+    admin.name = ""
+    admin.introduction = ""
     print(admin)
     db.db.session.add(admin)
     db.db.session.commit()

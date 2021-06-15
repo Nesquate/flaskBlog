@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %}
+{% block subtitle %}Admin - Setting{% endblock %}
+{% block content %}
+<h2>Site Setting</h2>
+{% if status  == 0 %}
+<b>Setting saved.</b>
+{% endif %}
+{% if status  == 1%}
+<b>Password Changed.</b>
+{% endif %}
+{% if status == 2 %}
+<b>Password not match.</b>
+{% endif %}
+<h3>Account Information</h3>
+<form method="POST" action="{{ url_for('accountSetting')}}">
+    <b>Account : </b><input name="account" value="{{ accountInfo.account }}" type="text" readonly><br>
+    <b>Name : </b><input name="accountName" value="{{ accountInfo.name }}" type="text"><br>
+    <b>Introduction : </b><input name="accountIntroduction" value="{{ accountInfo.introduction }}" type="text"><br>
+    <hr>
+    <b>Change password</b><br>
+    <b>New Password : </b><input name="changePassword" type="password"><br>
+    <b>Confirm new password : </b><input name="confirmChange" type="password"><br>
+    <hr>
+    <input type="submit" value="Save Changes">
+</form>
+{% endblock %}

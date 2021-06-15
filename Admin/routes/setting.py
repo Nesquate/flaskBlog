@@ -1,4 +1,3 @@
-import re
 from flask import render_template, url_for, request
 from flask_login.utils import login_required
 from app import core
