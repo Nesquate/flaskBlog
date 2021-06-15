@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>flaskBlog Installer</title>
+    </head>
+    <body>
+        <form method="POST" action="{{ url_for('installPage') }}">
+            <h1>flaskBlog Installer</h1>
+            <h2>Site Information</h2>
+            <p>Enter your site information</p>
+            <b>Name : </b><input name="name" type="text" value="An Site"><br>
+            <b>Description : </b><input name="description" type="text" value="An new site here."><br>
+            <h2>Your account</h2>
+            <p>This account can login admin panel.</p>
+            <b>Account : </b><input name="account" type="text"><br>
+            <b>Password : </b><input name="password" type="password"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

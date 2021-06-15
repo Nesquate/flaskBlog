@@ -1,4 +1,7 @@
 from database.db import db
+from app import login_manager
+from flask_login import UserMixin, LoginManager
+from werkzeug.security import check_password_hash, generate_password_hash
 
 relations = db.Table(
     'relations',
@@ -36,6 +39,7 @@ class Posts(db.Model):
     content = db.Column(db.String(), nullable=True)
     tags = db.relationship('Tags', secondary=relations, backref=db.backref('tag'))
     categories = db.Column(db.Integer(), db.ForeignKey('categories.id'), nullable=True)
+    author = db.Column(db.Integer(), db.ForeignKey('users.id'), nullable=True)
 
     def __init__(self, name, description, content):
         self.name = name
@@ -67,3 +71,23 @@ class Tags(db.Model):
 
 
 # Admin Information Datas
+
+class Users(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    postid = db.relationship('Posts', backref='user', lazy=True)
+    account = db.Column(db.String(), nullable=False)
+    password_hash = db.Column(db.String(), nullable=False)
+    name = db.Column(db.String(), nullable=True)
+    introduction= db.Column(db.String(), nullable=True)
+
+    def __init__(self, account, password):
+        self.account = account
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(user_id)

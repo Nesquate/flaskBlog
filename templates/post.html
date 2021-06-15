@@ -21,6 +21,9 @@
         Category : 
         <a href="{{ url_for('categoryPage', category=postData.category.id) }}">{{ postData.category.name }}</a>
     </div>
+    <div id="autohrInPost">
+        Autohr : {{ postData.user.account }}
+    </div>
 </div>
 {% else %}
 <div id="postList">

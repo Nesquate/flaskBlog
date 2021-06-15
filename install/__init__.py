@@ -1,13 +1,30 @@
-from flask import render_template, url_for, escape, redirect, abort
+from flask import render_template, url_for, escape, redirect, abort, request
 from app import core
 from database import db,models
 
-@core.route('/install')
-def dbCreate():
+@core.route('/install', methods=['GET', 'POST'])
+def installPage():
+    if request.method == "POST":
+        siteName = request.form['name']
+        siteDescription = request.form['description']
+        account = request.form['account']
+        password = request.form['password']
+        dbCreate(siteName, siteDescription, account, password)
+        return redirect('/')
+
+    return render_template("install/index.html")
+
+def dbCreate(siteName, siteDescription, account, password):
     db.db.create_all()
 
+    # Create User
+    admin = models.Users(account, password)
+    print(admin)
+    db.db.session.add(admin)
+    db.db.session.commit()
+
     # Create test datas
-    siteInfo =  models.Site('Test Site', 'An Test Site')
+    siteInfo =  models.Site(siteName, siteDescription)
     firstCategory = models.Categories('Uncategorized', 'Uncategorized post is here')
     firstTag = models.Tags('FirstTag', 'This is first tag')
     firstPost = models.Posts('First Post', 'First', 'This is first post')
@@ -18,7 +35,6 @@ def dbCreate():
     ## Create category, tag and post relationship
      
     firstPost.categories = 1
+    firstPost.author = admin.id
     firstPost.tags = [firstTag]
     db.db.session.commit()
-
-    return 'You can check if data.db exist or not, and you can remove install folder.'
