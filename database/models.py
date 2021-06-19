@@ -51,7 +51,7 @@ class Posts(db.Model):
 # Categories Information Datas
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    postid = db.relationship('Posts', backref='category', lazy=True)
+    postid = db.relationship('Posts', backref='category', lazy=True, order_by="Posts.id.desc()")
     name = db.Column(db.String(), nullable=False)
     description = db.Column(db.String(), nullable=True)
 

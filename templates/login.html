@@ -3,8 +3,16 @@
 {% block content %}
 <h2>Login</h2>
 <form method="POST" action="{{ url_for('loginPage') }}">
-    <b>Account : </b><input name="account" type="text"><br>
-    <b>Password : </b><input name="password" type="password"><br>
-    <input name="submit" type="submit" value="Login">
+    <div class="row">
+        <div class="col">
+            <b>Account : </b><input class="form-control" name="account" type="text"><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <b>Password : </b><input class="form-control" name="password" type="password"><br>
+        </div>
+    </div>
+    <input class="btn btn-primary" name="submit" type="submit" value="Login">
 </form>
 {% endblock %}

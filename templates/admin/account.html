@@ -1,26 +1,50 @@
 {% extends 'admin/base.html' %}
 {% block subtitle %}Admin - Setting{% endblock %}
 {% block content %}
-<h2>Site Setting</h2>
 {% if status  == 0 %}
+<div class="alert alert-success" role="alert" style="padding-top: 10px;">
 <b>Setting saved.</b>
+</div>
 {% endif %}
 {% if status  == 1%}
+<div class="alert alert-success role="alert" style="padding-top: 10px;">
 <b>Password Changed.</b>
+</div>
 {% endif %}
 {% if status == 2 %}
+<div class="alert alert-warning" role="alert" style="padding-top: 10px;">
 <b>Password not match.</b>
+</div>
 {% endif %}
-<h3>Account Information</h3>
-<form method="POST" action="{{ url_for('accountSetting')}}">
-    <b>Account : </b><input name="account" value="{{ accountInfo.account }}" type="text" readonly><br>
-    <b>Name : </b><input name="accountName" value="{{ accountInfo.name }}" type="text"><br>
-    <b>Introduction : </b><input name="accountIntroduction" value="{{ accountInfo.introduction }}" type="text"><br>
-    <hr>
-    <b>Change password</b><br>
-    <b>New Password : </b><input name="changePassword" type="password"><br>
-    <b>Confirm new password : </b><input name="confirmChange" type="password"><br>
-    <hr>
-    <input type="submit" value="Save Changes">
-</form>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col">
+            <h2>Account Information</h2>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="{{ url_for('accountSetting')}}">
+                <div class="row">
+                    <div class="col">
+                        <b>Account : </b><input class="form-control" name="account" value="{{ accountInfo.account }}" type="text" readonly><br>
+                        <b>Name : </b><input class="form-control" name="accountName" value="{{ accountInfo.name }}" type="text"><br>
+                        <b>Introduction : </b><input class="form-control" name="accountIntroduction" value="{{ accountInfo.introduction }}" type="text"><br>
+                    </div>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>Change password</h3>
+                        <b>New Password : </b><input class="form-control" name="changePassword" type="password"><br>
+                        <b>Confirm new password : </b><input class="form-control" name="confirmChange" type="password"><br>
+                    </div>
+                    <hr>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Save Changes">
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

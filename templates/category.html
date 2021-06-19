@@ -4,11 +4,13 @@
 {% block content %}
 <h2>Category : {{ categoryData.name }}</h2>
 {% if postsByCategory %}
-<ul>
-    {% for post in postsByCategory %}
-    <li><a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a></li>
-    {% endfor %}
-</ul>
+{% for post in postsByCategory %}
+<div class="card">
+    <div class="card-body">
+        <a href="{{ url_for('postPage', postid=post.id) }}">{{ post.name }}</a>
+    </div>
+</div>
+{% endfor %}
 {% else %}
 <p>No post.</p>
 {% endif %}

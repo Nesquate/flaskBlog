@@ -1,33 +1,62 @@
 {% extends 'admin/base.html' %}
 {% block subtitle %}Admin - Posts{% endblock %}
 {% block content %}
-<h2>Posts</h2>
 {% if status == 1 %}
-<b>Successful delete.</b><br>
+<div class="alert alert-warning" role="alert" style="padding-top: 10px;">
+Successful delete.
+</div>
 {% endif %}
-<a href="{{ url_for('newPost') }}">Add Post</a>
-<h3>List</h3>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th></th>
-    </tr>
-    {% for post in postsList %}
-    <tr>
-        <td>{{ post.id }}</td>
-        <td>{{ post.name }}</td>
-        <td>{{ post.description }}</td>
-        <th><a href="{{ url_for('editPost', postid=post.id )}}">Edit</a></th>
-    </tr>
-    {% endfor %}
-</table>
-<h3>Delete Post</h3>
-<p>Type post id to delete post.</p>
-<form method="POST" action="{{ url_for('adminPosts') }}">
-    <b>Input : </b>
-    <input name="delPost" type="text">
-    <input type="submit" value="Submit">
-</form>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-10">
+            <h2>Posts</h2>
+        </div>
+        <div class="col">
+            <a href="{{ url_for('newPost') }}"><button type="button" class="btn btn-primary">Add Post</button></a>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>List</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                {% for post in postsList %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.name }}</td>
+                    <td>{{ post.description }}</td>
+                    <th><a href="{{ url_for('editPost', postid=post.id )}}">Edit</a></th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Delete Post</h3>
+            <p>Type post id to delete post.</p>
+            <form method="POST" action="{{ url_for('adminPosts') }}">
+                <div class="row">
+                    <b>Input : </b>
+                    <div class="col">
+                        <input name="delPost" type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

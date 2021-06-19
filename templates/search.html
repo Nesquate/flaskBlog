@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Search</h2>
 <form method="POST", action="{{ url_for('search')}}">
-    <input type="text" name='keyword'>
-    <input type="submit" value="Search">
+    <input class="form-control" type="text" name='keyword'>
+    <input class="form-control" type="submit" value="Search">
 </form>
 {% endblock %}

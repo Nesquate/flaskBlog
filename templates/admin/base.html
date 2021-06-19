@@ -2,25 +2,61 @@
 <html lang="zh-TW">
     <head>
         {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
         <title>{% block subtitle %}{% endblock %}</title>
         {% endblock %}
     </head>
     <body>
-        <h1><a href="{{ url_for('adminIndex') }}">Admin Page</a></h1>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('adminIndex') }}">Home</a></li>
-                <li><a href="{{ url_for('adminPosts') }}">Posts</a></li>
-                <li><a href="{{ url_for('adminCategories') }}">Categories</a></li>
-                <li><a href="{{ url_for('adminTags') }}">Tags</a></li>
-                <li><a href="{{ url_for('siteSetting') }}">Site setting</a></li>
-                <li><a href="{{ url_for('accountSetting') }}">Account Infomation</a></li>
-                <li><a href="{{ url_for('logoutPage') }}"">Logout</a></li>
-            </ul>
-        </nav>
-        {% block content %}{% endblock %}
-        <footer>
-            <a href="https://github.com/Nesquate/flaskBlog" target="_blank">flaskBlog</a> 0.1 alpha - All right reserved.
-        </footer>
+        
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col bg-dark" style="height: 100vh;">
+                    <nav class="navbar navbar-dark bg-dark">
+                        <p style="color: white; padding: 20px;">Current User : {{ current_user.account }}</p>
+                        <div class="container-fluid">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('adminIndex') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('adminPosts') }}">Posts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('adminCategories') }}">Categories</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('adminTags') }}">Tags</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('siteSetting') }}">Site setting</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('accountSetting') }}">Account Infomation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('logoutPage') }}"">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="color: white; padding: 20px;">
+                            <a href="https://github.com/Nesquate/flaskBlog" target="_blank">flaskBlog</a> 0.1 alpha
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-10">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     </body>
 </html>

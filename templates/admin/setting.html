@@ -1,16 +1,36 @@
 {% extends 'admin/base.html' %}
 {% block subtitle %}Admin - Setting{% endblock %}
 {% block content %}
-<h2>Site Setting</h2>
 {% if status %}
+<div class="alert alert-success role="alert" style="padding-top: 10px;">
 <b>Setting saved.</b>
+</div>
 {% endif %}
-<h3>Site Information</h3>
-<form method="POST" action="{{ url_for('siteSetting')}}">
-    <b>Site Name : </b><input name="siteName" value="{{ siteInfo.name }}" type="text">
-    <br>
-    <b>Site Description : </b><input name="siteDescription" value="{{ siteInfo.description }}" type="text">
-    <br><hr>
-    <input type="submit" value="Save Changes">
-</form>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-10">
+            <h2>Site Setting</h2>
+        </div>
+        <div class="col">
+            <h3>Site Information</h3>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <form method="POST" action="{{ url_for('siteSetting')}}">
+            <div class="row">
+                <div class="col">
+                    <b>Site Name : </b><input class="form-control" name="siteName" value="{{ siteInfo.name }}" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <b>Site Description : </b><input class="form-control" name="siteDescription" value="{{ siteInfo.description }}" type="text">
+                </div>
+            </div>
+            <br><hr>
+            <input class="btn btn-primary" type="submit" value="Save Changes">
+        </form>
+    </div>
+</div>
 {% endblock %}

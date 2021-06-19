@@ -1,26 +1,50 @@
 {% extends 'admin/base.html' %}
 {% block subtitle %}Admin - New Post{% endblock %}
 {% block content %}
-<h2>Posts</h2>
-<h3>New Post</h3>
-<form method="POST" action="{{ url_for('newPost') }}">
-    <b>Title : </b><br>
-    <input name="title" type="text"><br>
-    <b>Content : </b><br>
-    <textarea name="content" cols="20", rows="15"></textarea><br>
-    <b>Description</b><br>
-    <input name="description" type="text"><br>
-    <b>Cetegory :</b><br>
-    <select name="category">
-        {% for category in categoriesList %}
-        <option value="{{ category.id }}">{{ category.name }}</option>
-        {% endfor %}
-    </select><br>
-    <b>Tags: </b><br>
-    {% for tag in tagsList %}
-    <input type="checkbox" id="tag_{{ tag.id }}" name="tag" value="{{ tag.id }}">
-    <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
-    {% endfor %}
-    <input type="submit" value="Submit">
-</form>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-10">
+            <h2>Posts</h2>
+        </div>
+        <div class="col">
+            <h3>New Post</h3>
+        </div>
+        <hr>
+    </div>
+    <form method="POST" action="{{ url_for('newPost') }}"></form>
+        <div class="row">
+            <div class="col-9">
+                <b>Title : </b><br>
+                <input class="form-control" name="title" type="text"><br>
+                <b>Content : </b><br>
+                <textarea class="form-control" name="content" cols="20", rows="15"></textarea><br>
+                <b>Description</b><br>
+                <input class="form-control" name="description" type="text">
+            </div>
+            <div class="col">
+                <b>Cetegory :</b><br>
+                <select class="form-select" name="category">
+                    {% for category in categoriesList %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select><br>
+                <b>Tags: </b><br>
+                <div class="form-check">
+                    {% for tag in tagsList %}
+                    <input class="form-check-input" type="checkbox" id="tag_{{ tag.id }}" name="tag" value="{{ tag.id }}">
+                    <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
+                {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+</div>
+    
+    
 {% endblock %}

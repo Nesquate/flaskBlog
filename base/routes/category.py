@@ -1,6 +1,6 @@
 from flask import render_template, url_for, escape, redirect, abort
 from app import core
-from database import db
+from database import db, models
 
 @core.route('/category/<category>')
 def categoryPage(category):
@@ -10,7 +10,8 @@ def categoryPage(category):
         return render_template(
             'category.html', 
             db=db,
-            categoryData=categoryData
+            categoryData=categoryData,
+            models=models
         )
     else:
         abort(404)

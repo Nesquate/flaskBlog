@@ -1,33 +1,59 @@
 {% extends 'admin/base.html' %}
 {% block subtitle %}Admin - Tags{% endblock %}
 {% block content %}
-<h2>Tags</h2>
 {% if status == 1 %}
-<b>Successful delete.</b><br>
+<div class="alert alert-warning" role="alert" style="padding-top: 10px;">
+Successful delete.
+</div>
 {% endif %}
-<a href="{{ url_for('newTag') }}">Add Tag</a>
-<h3>List</h3>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th></th>
-    </tr>
-    {% for tag in tagsList %}
-    <tr>
-        <td>{{ tag.id }}</td>
-        <td>{{ tag.name }}</td>
-        <td>{{ tag.description }}</td>
-        <td><a href="{{ url_for('editTag', tagid=tag.id) }}">Edit</a></td>
-    </tr>
-    {% endfor %}
-</table>
-<h3>Delete Tag</h3>
-<p>Type tag id to delete tag.</p>
-<form method="POST" action="{{ url_for('adminTags') }}">
-    <b>Input : </b>
-    <input name="delTag" type="text">
-    <input type="submit" value="Submit">
-</form>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-10">
+            <h2>Tags</h2>
+        </div>
+        <div class="col">
+            <a href="{{ url_for('newTag') }}"><button class="btn btn-primary" type="button">Add Tag</button></a>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <h3>List</h3>
+        <div class="col">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                {% for tag in tagsList %}
+                <tr>
+                    <td>{{ tag.id }}</td>
+                    <td>{{ tag.name }}</td>
+                    <td>{{ tag.description }}</td>
+                    <td><a href="{{ url_for('editTag', tagid=tag.id) }}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </table> 
+        </div>
+        
+    </div>
+    <div class="row">
+        <h3>Delete Tag</h3>
+        <div class="col">
+            <p>Type tag id to delete tag.</p>
+            <form method="POST" action="{{ url_for('adminTags') }}">
+                <b>Input : </b>
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control" name="delTag" type="text">
+                    </div>
+                    <div class="col">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

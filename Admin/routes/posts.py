@@ -1,5 +1,5 @@
 from flask import render_template, url_for, escape, redirect, abort, request
-from flask_login.utils import login_required
+from flask_login.utils import login_required, current_user
 from app import core
 from database import db, models
 
@@ -12,7 +12,7 @@ def adminPosts():
         status = delPost(request.form['delPost'])
         postsList = db.Posts.query.all()
         return render_template('admin/posts/posts.html', postsList=postsList, status=status)
-    postsList = db.Posts.query.all()
+    postsList = db.Posts.query.order_by(models.Posts.id.desc()).all()
     return render_template('admin/posts/posts.html', postsList=postsList)
 
 @core.route('/admin/posts/new', methods=['GET', 'POST'])
@@ -28,7 +28,7 @@ def newPost():
             tag = db.Tags.query.filter_by(id=tagid).first()
             tagList.append(tag)
         post.tags = tagList
-
+        post.author = current_user.id
         db.db.session.add(post)
         db.db.session.commit()
         return redirect(url_for('adminPosts'))
